@@ -3,6 +3,7 @@ import os
 import uuid
 from bs4 import BeautifulSoup
 import imghdr
+import urllib.request
 
 def check_image_format(image):
     return imghdr.what(image)
@@ -26,7 +27,7 @@ def download_file(url, target_folder):
         for chunk in r.iter_content(chunk_size=1024):
             if chunk:
                 f.write(chunk)
-# 
+#
 # def Download_Image_from_Web(url, target_folder ='images', downloaded_images_counter=0):
 #     source_code = requests.get(url)
 #     plain_text = source_code.text
@@ -49,6 +50,7 @@ def GetImagesLinks(src, url):
     for link in soup.findAll('img'):
         try:
             image_link = link.get('src')
+            print(link.get('srcset'))
             if not image_link.startswith('http'):
                 image_link = url + '/' + image_link
             images_to_download.append(image_link)
